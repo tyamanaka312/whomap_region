@@ -1,15 +1,15 @@
-Package: whomap_region
+Package: whoregionalmap
 Version: 1.0.0
 Title: Cloropleth maps of the world using shapes from WHO
-Authors@R: person("Philippe", "Glaziou", email = "glaziou@protonmail.com", role = c("aut", "cre"))
+Authors@R: person("Takuya", "Yamanaka", email = "yamanakat@who.int", role = c("aut", "cre"))
 Description: Loads WHO shape files (2022) and provides a wrapper to ggplot2. 
   Adapted from scripts from Tom Hiatt and Hazim Timimi.
 Depends: R (>= 4.0.0),
   ggplot2 (>= 3.3.0),
   scales (>= 1.1.0)
 License: GPL-2 | file LICENSE
-URL: https://github.com/glaziou/whomap
-BugReports: https://github.com/glaziou/whomap/issues
+URL: https://github.com/tyamanaka312/whoregionalmap
+BugReports: https://github.com/tyamanaka312/whoregionalmap/issues
 Encoding: UTF-8
 RoxygenNote: 7.2.0
 Suggests: 

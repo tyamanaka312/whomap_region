@@ -1,4 +1,4 @@
-# R package whomap_region
+# R package whoregionalmap
 version 1.0.0
 
 Draws choropleth maps of the world, based on WHO shapefiles (simpler or more detailed issued in 2022), adapted from scripts from Tom Hiatt and Hazim Timimi.

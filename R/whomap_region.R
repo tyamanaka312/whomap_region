@@ -1,6 +1,6 @@
 #' Choropleth world maps
 #'
-#' `whomap()` prints a choropleth world map based on shape files
+#' `whomap_region()` prints a choropleth world map based on shape files
 #' from the World Health Organization. It requires ggplot2.
 #'
 #' @param X a dataframe. It must contain a variable "iso" (factor)

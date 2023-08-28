@@ -1,9 +1,9 @@
 Package: whoregionalmap
 Version: 1.0.0
-Title: Cloropleth maps of the world using shapes from WHO
+Title: Cloropleth WHO Regional maps using shapes from WHO
 Authors@R: person("Takuya", "Yamanaka", email = "yamanakat@who.int", role = c("aut", "cre"))
 Description: Loads WHO shape files (2022) and provides a wrapper to ggplot2. 
-  Adapted from scripts from Tom Hiatt and Hazim Timimi.
+  Adapted from scripts from Phillipe Glaziou.
 Depends: R (>= 4.0.0),
   ggplot2 (>= 3.3.0),
   scales (>= 1.1.0)

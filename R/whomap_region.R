@@ -443,7 +443,7 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
   levels(toplot$g_whoregion) <-
     c(levels(toplot$g_whoregion), 'Not applicable')
   levels(toplot$var) <-
-    c(levels(toplot$var), 'No data', 'Not in region', 'Not applicable')
+    c(levels(toplot$var), na.label, 'Not in region', 'Not applicable')
   toplot[toplot$id == "ESH", "var"] <- 'Not applicable'
   toplot[is.na(toplot$g_whoregion), "g_whoregion"] <- 'Not applicable'
   toplot[toplot$g_whoregion != "WPR", "var"] <- 'Not in region'

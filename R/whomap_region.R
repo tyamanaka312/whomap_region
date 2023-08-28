@@ -45,7 +45,7 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
                     map.title = "",
                     legend.title = "",
                     water.col = 'lightskyblue',
-                    na.label = 'No data or not in region',
+                    na.label = 'No data',
                     na.col = 'grey95',
                     disclaimer = FALSE,
                     legend.pos = c(0.14, 0.26),
@@ -127,8 +127,8 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
 {
   if (is.data.frame(X) == FALSE)
     stop("X must be a dataframe")
-  if (all(c("iso3", "var") %in% names(X)) == FALSE)
-    stop("X must have two variables named 'iso3' and 'var'")
+  if (all(c("iso3", "var", "g_whoregion") %in% names(X)) == FALSE)
+    stop("X must have three variables named 'iso3', 'g_whoregion and 'var'")
 
   X <- as.data.frame(X[!is.na(X$var) & X$var != "",])
   if (is.factor(X$var) &
@@ -136,7 +136,8 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
     X <- droplevels(X[!grepl("^\\s*$", X$var), , drop = FALSE])
   if (!is.factor(X$var))
     X$var <- as.factor(X$var)
-
+  if (!is.factor(X$g_whoregion))
+    X$g_whoregion <- as.factor(X$g_whoregion)
 
   # recentre
   stopifnot(is.numeric(recentre))
@@ -439,13 +440,14 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
           by.y = 'iso3',
           all.x = TRUE)
   toplot <- toplot[order(toplot$order),]
+  levels(toplot$g_whoregion) <-
+    c(levels(toplot$g_whoregion), 'Not applicable')
   levels(toplot$var) <-
-    c(levels(toplot$var), na.label, 'Not applicable')
-  toplot[is.na(toplot$var), "var"] <- na.label
+    c(levels(toplot$var), 'No data', 'Not in region', 'Not applicable')
   toplot[toplot$id == "ESH", "var"] <- 'Not applicable'
+  toplot[is.na(toplot$g_whoregion), "g_whoregion"] <- 'Not applicable'
   toplot[toplot$g_whoregion != "WPR", "var"] <- 'Not in region'
   
-
   # plot
   p <-
     ggplot2::ggplot(toplot, aes(x = .data$long, y = .data$lat)) +

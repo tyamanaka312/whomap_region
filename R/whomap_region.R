@@ -45,7 +45,7 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
                     map.title = "",
                     legend.title = "",
                     water.col = 'lightskyblue',
-                    na.label = 'No data',
+                    na.label = 'No data or not in region',
                     na.col = 'grey95',
                     disclaimer = FALSE,
                     legend.pos = c(0.14, 0.26),
@@ -412,6 +412,25 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
   of its frontiers or boundaries. Dotted and dashed lines on maps represent approximate borderlines for which there may not yet be full agreement."
   )
 
+  
+  # Get dimensions
+  if(zoom=='Global'){
+    legend.pos <- c(0.14, 0.26)
+    zx <- c(-180, 180)
+    zy <- c(min(gworld$lat), max(gworld$lat))
+    a.ratio = 2.2/4
+  }   else
+    
+    if(zoom=='WPR'){
+      legend.pos <- c(0.83, 0.95)
+      zx <- c(70, 215) 
+      zy <- c(-50, 55)
+      a.ratio = 4.5/5.8 # before 3.5/4 (Tom Hiatt's setting)
+    } else stop(paste(zoom, "is not on my list of zoom level options."))
+  
+  if (recentre > 0)
+    zx <- zx + recentre
+  
   # merge data
   toplot <-
     merge(gworld,
@@ -424,24 +443,8 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
     c(levels(toplot$var), na.label, 'Not applicable')
   toplot[is.na(toplot$var), "var"] <- na.label
   toplot[toplot$id == "ESH", "var"] <- 'Not applicable'
-
-  # Get dimensions
-  if(zoom=='Global'){
-    legend.pos <- c(0.14, 0.26)
-    zx <- c(-180, 180)
-    zy <- c(min(gworld$lat), max(gworld$lat))
-    a.ratio = 2.2/4
-    }   else
-      
-      if(zoom=='WPR'){
-      legend.pos <- c(0.83, 0.95)
-      zx <- c(70, 215) 
-      zy <- c(-50, 55)
-      a.ratio = 4.5/5.8 # before 3.5/4 (Tom Hiatt's setting)
-      } else stop(paste(zoom, "is not on my list of zoom level options."))
-
-  if (recentre > 0)
-    zx <- zx + recentre
+  toplot[toplot$g_whoregion != "WPR", "var"] <- 'Not in region'
+  
 
   # plot
   p <-
@@ -702,20 +705,6 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
   of its frontiers or boundaries. Dotted and dashed lines on maps represent approximate borderlines for which there may not yet be full agreement."
   )
 
-  # merge data
-  toplot <-
-    merge(gw,
-          X,
-          by.x = 'id',
-          by.y = 'iso3',
-          all.x = TRUE)
-  toplot <- toplot[order(toplot$order),]
-  levels(toplot$var) <-
-    c(levels(toplot$var), na.label, 'Not applicable')
-  toplot[is.na(toplot$var), "var"] <- na.label
-  toplot[toplot$id == "ESH", "var"] <- 'Not applicable'
-
-  
   # Get dimensions
   if(zoom=='Global'){
     legend.pos <- c(0.14, 0.26)
@@ -733,6 +722,19 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
   
   if (recentre > 0)
     zx <- zx + recentre
+  
+  # merge data
+  toplot <-
+    merge(gw,
+          X,
+          by.x = 'id',
+          by.y = 'iso3',
+          all.x = TRUE)
+  toplot <- toplot[order(toplot$order),]
+  levels(toplot$var) <-
+    c(levels(toplot$var), na.label, 'Not applicable')
+  toplot[is.na(toplot$var), "var"] <- na.label
+  toplot[toplot$id == "ESH", "var"] <- 'Not applicable'
   
   # plot
   p <-

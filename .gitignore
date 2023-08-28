@@ -4,3 +4,5 @@
 .Rbuildignore
 whomap.Rproj
 tmp/
+local/
+.here

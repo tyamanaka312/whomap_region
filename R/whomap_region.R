@@ -457,11 +457,19 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
       colour = line.col
     )
   
+  pol8 <-
+    ggplot2::geom_polygon(
+      data = toplot[toplot$var == na.label, ],
+      aes(group = .data$group),
+      fill = I("white"),
+      colour = line.col
+    )
+  
   # plot
   p <-
     ggplot2::ggplot(toplot, aes(x = .data$long, y = .data$lat)) +
     ggplot2::geom_polygon(aes(group = .data$group, fill = .data$var), colour = NA) +
-    pol1 + pol2 + pol3 + pol4 + pol5 + pol6 + pol7 +
+    pol1 + pol2 + pol3 + pol4 + pol5 + pol6 + pol7 + pol8 +
     lin0 + lin1 + lin2 + lin3 + lin4 +
     thm1 + thm2 + thm3 +
     ggplot2::geom_polygon(aes(group = .data$group, fill = .data$var), toplot[toplot$id %in% c('SWZ', 'LSO'), ]) +

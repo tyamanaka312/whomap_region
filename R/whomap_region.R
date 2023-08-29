@@ -444,10 +444,10 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
     c(levels(toplot$g_whoregion), 'Not applicable')
   levels(toplot$var) <-
     c(levels(toplot$var), na.label, 'Not applicable')
-  toplot[is.na(toplot$var), "var"] <- na.label
   toplot[toplot$id == "ESH", "var"] <- 'Not applicable'
   toplot[is.na(toplot$g_whoregion), "g_whoregion"] <- 'Not applicable'
-  # toplot[toplot$g_whoregion != zoom, "var"] <- 'Not applicable'
+  toplot[toplot$g_whoregion != zoom, "var"] <- 'Not applicable'
+  toplot[is.na(toplot$var), "var"] <- na.label
   
   # plot
   p <-

@@ -443,10 +443,10 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
   levels(toplot$g_whoregion) <-
     c(levels(toplot$g_whoregion), 'Not applicable')
   levels(toplot$var) <-
-    c(levels(toplot$var), na.label, 'Not in region', 'Not applicable')
+    c(levels(toplot$var), na.label, 'Not applicable')
   toplot[toplot$id == "ESH", "var"] <- 'Not applicable'
   toplot[is.na(toplot$g_whoregion), "g_whoregion"] <- 'Not applicable'
-  toplot[toplot$g_whoregion != zoom, "var"] <- 'Not in region'
+  toplot[toplot$g_whoregion != zoom, "var"] <- 'Not applicable'
   
   # plot
   p <-
@@ -1136,7 +1136,7 @@ bubblemap_region <- function (X = data.frame(iso3 = NA, size = NA),
     
     if(zoom=='WPR'){
       legend.pos <- c(0.83, 0.95)
-      zx <- c(70, 215) 
+      zx <- c(65, 215) 
       zy <- c(-50, 55)
       a.ratio = 4.5/5.8 # before 3.5/4 (Tom Hiatt's setting)
     } else stop(paste(zoom, "is not on my list of zoom level options."))

@@ -433,14 +433,14 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
         legend.pos <- c(0.10, 0.20)
         zx <- c(-20, 80) 
         zy <- c(-10, 50)
-        a.ratio = 3.5/4 # before 3.5/4 (Tom Hiatt's setting)
+        a.ratio = 3/4 # before 3.5/4 (Tom Hiatt's setting)
       }    else
         
         if(zoom=='EUR'){
-          legend.pos <-  c(0.14, 0.26)
-          zx <- c(-60, 230) 
+          legend.pos <-  c(0.10, 0.26)
+          zx <- c(-75, 250) 
           zy <- c(35, 85)
-          a.ratio = 3.5/9 # before 3.5/4 (Tom Hiatt's setting)
+          a.ratio = 3/9 # before 3.5/4 (Tom Hiatt's setting)
         }    else
           
           if(zoom=='AFR'){

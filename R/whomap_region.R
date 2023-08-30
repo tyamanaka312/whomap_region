@@ -49,7 +49,7 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
                     na.col = 'grey95',
                     disclaimer = FALSE,
                     legend.pos = c(0.14, 0.26),
-                    recentre = 0,
+                    recentre = 12,
                     hidef = FALSE,
                     zoom = "Global"
                     )
@@ -441,7 +441,6 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
           zx <- c(-80, 225) 
           zy <- c(25, 85)
           a.ratio = 3.5/10
-          recentre = 12
         }    else
           
           if(zoom=='AFR'){

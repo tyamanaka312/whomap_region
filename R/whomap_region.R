@@ -431,30 +431,30 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
       
       if(zoom=='EMR'){
         legend.pos <- c(0.10, 0.20)
-        zx <- c(-20, 80) 
+        zx <- c(-32, 68) 
         zy <- c(-10, 50)
         a.ratio = 3/4
       }    else
         
         if(zoom=='EUR'){
           legend.pos <-  c(0.15, 0.26)
-          zx <- c(-80, 225) 
+          zx <- c(-92, 213) 
           zy <- c(25, 85)
           a.ratio = 3.5/10
         }    else
           
           if(zoom=='AFR'){
             legend.pos <- c(0.14, 0.35)
-            zx <- c(-20, 60) 
+            zx <- c(-32, 48) 
             zy <- c(-40, 40)
             a.ratio = 4/3.5
           }    else
             
             if(zoom=='SEA'){
               legend.pos <- c(0.14, 0.26)
-              zx <- c(64, 155) 
+              zx <- c(52, 143) 
               zy <- c(-15, 45)
-              a.ratio = 4.5/5.8 
+              a.ratio = 4/5.8 
             }    else
               
               if(zoom=='AMR'){

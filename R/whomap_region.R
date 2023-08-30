@@ -437,10 +437,10 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
       }    else
         
         if(zoom=='EUR'){
-          legend.pos <-  c(0.10, 0.26)
-          zx <- c(-75, 250) 
+          legend.pos <-  c(0.12, 0.26)
+          zx <- c(-75, 265) 
           zy <- c(35, 85)
-          a.ratio = 3/9 # before 3.5/4 (Tom Hiatt's setting)
+          a.ratio = 3/10 # before 3.5/4 (Tom Hiatt's setting)
         }    else
           
           if(zoom=='AFR'){
@@ -458,10 +458,10 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
             }    else
               
               if(zoom=='AMR'){
-                legend.pos <- c(0.83, 0.95)
-                zx <- c(-140, -30) 
+                legend.pos <- c(0.14, 0.26)
+                zx <- c(-160, -30) 
                 zy <- c(-60, 85)
-                a.ratio = 8/3 # before 3.5/4 (Tom Hiatt's setting)
+                a.ratio = 7/3 # before 3.5/4 (Tom Hiatt's setting)
               } else stop(paste(zoom, "is not on my list of zoom level options."))
   
   if (recentre > 0)

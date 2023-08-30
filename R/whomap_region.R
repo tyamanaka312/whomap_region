@@ -433,28 +433,28 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
         legend.pos <- c(0.83, 0.95)
         zx <- c(-20, 75) 
         zy <- c(-10, 50)
-        a.ratio = 2.2/4 # before 3.5/4 (Tom Hiatt's setting)
+        a.ratio = 3.5/4 # before 3.5/4 (Tom Hiatt's setting)
       }    else
         
         if(zoom=='EUR'){
           legend.pos <- c(0.83, 0.95)
           zx <- c(-20, 200) 
-          zy <- c(-40, 40)
+          zy <- c(35, 85)
           a.ratio = 2.2/4 # before 3.5/4 (Tom Hiatt's setting)
         }    else
           
           if(zoom=='AFR'){
             legend.pos <- c(0.83, 0.95)
             zx <- c(-20, 60) 
-            zy <- c(35, 85)
+            zy <- c(-40, 40)
             a.ratio = 2.2/4 # before 3.5/4 (Tom Hiatt's setting)
           }    else
             
             if(zoom=='SEA'){
-              legend.pos <- c(0.83, 0.95)
+              legend.pos <- c(0.14, 0.26)
               zx <- c(64, 155) 
-              zy <- c(-15, 40)
-              a.ratio = 2.2/4 # before 3.5/4 (Tom Hiatt's setting)
+              zy <- c(-15, 45)
+              a.ratio = 3.5/4 # before 3.5/4 (Tom Hiatt's setting)
             }    else
               
               if(zoom=='AMR'){
@@ -462,7 +462,7 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
                 zx <- c(185, 335) 
                 zy <- c(-60, 85)
                 a.ratio = 2.2/4 # before 3.5/4 (Tom Hiatt's setting)
-              }else stop(paste(zoom, "is not on my list of zoom level options."))
+              } else stop(paste(zoom, "is not on my list of zoom level options."))
   
   if (recentre > 0)
     zx <- zx + recentre

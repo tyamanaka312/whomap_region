@@ -437,10 +437,10 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
       }    else
         
         if(zoom=='EUR'){
-          legend.pos <-  c(0.20, 0.26)
+          legend.pos <-  c(0.15, 0.26)
           zx <- c(-80, 225) 
-          zy <- c(30, 85)
-          a.ratio = 3/10 # before 3.5/4 (Tom Hiatt's setting)
+          zy <- c(20, 85)
+          a.ratio = 3.5/10 # before 3.5/4 (Tom Hiatt's setting)
         }    else
           
           if(zoom=='AFR'){

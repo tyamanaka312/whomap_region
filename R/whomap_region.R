@@ -459,9 +459,9 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
               
               if(zoom=='AMR'){
                 legend.pos <- c(0.83, 0.95)
-                zx <- c(-90, -20) 
+                zx <- c(-140, -30) 
                 zy <- c(-60, 85)
-                a.ratio = 5/3 # before 3.5/4 (Tom Hiatt's setting)
+                a.ratio = 8/3 # before 3.5/4 (Tom Hiatt's setting)
               } else stop(paste(zoom, "is not on my list of zoom level options."))
   
   if (recentre > 0)

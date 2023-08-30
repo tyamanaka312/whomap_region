@@ -430,36 +430,36 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
     }   else
       
       if(zoom=='EMR'){
-        legend.pos <- c(0.14, 0.26)
-        zx <- c(-20, 75) 
+        legend.pos <- c(0.10, 0.20)
+        zx <- c(-20, 80) 
         zy <- c(-10, 55)
         a.ratio = 3.5/4 # before 3.5/4 (Tom Hiatt's setting)
       }    else
         
         if(zoom=='EUR'){
-          legend.pos <- c(0.83, 0.95)
-          zx <- c(-35, 210) 
+          legend.pos <-  c(0.14, 0.26)
+          zx <- c(-50, 220) 
           zy <- c(35, 85)
-          a.ratio = 3.5/4 # before 3.5/4 (Tom Hiatt's setting)
+          a.ratio = 3.5/6 # before 3.5/4 (Tom Hiatt's setting)
         }    else
           
           if(zoom=='AFR'){
             legend.pos <- c(0.14, 0.26)
             zx <- c(-20, 60) 
             zy <- c(-40, 40)
-            a.ratio = 4/3 # before 3.5/4 (Tom Hiatt's setting)
+            a.ratio = 4/3.5 # before 3.5/4 (Tom Hiatt's setting)
           }    else
             
             if(zoom=='SEA'){
               legend.pos <- c(0.14, 0.26)
               zx <- c(64, 155) 
               zy <- c(-15, 45)
-              a.ratio = 3.5/4 # before 3.5/4 (Tom Hiatt's setting)
+              a.ratio = 4.5/5.8 
             }    else
               
               if(zoom=='AMR'){
                 legend.pos <- c(0.83, 0.95)
-                zx <- c(185, -20) 
+                zx <- c(185, 300) 
                 zy <- c(-60, 85)
                 a.ratio = 5/3 # before 3.5/4 (Tom Hiatt's setting)
               } else stop(paste(zoom, "is not on my list of zoom level options."))

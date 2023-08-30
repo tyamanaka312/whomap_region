@@ -437,7 +437,7 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
       }    else
         
         if(zoom=='EUR'){
-          legend.pos <-  c(0.12, 0.26)
+          legend.pos <-  c(0.20, 0.26)
           zx <- c(-80, 225) 
           zy <- c(30, 85)
           a.ratio = 3/10 # before 3.5/4 (Tom Hiatt's setting)
@@ -458,7 +458,7 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
             }    else
               
               if(zoom=='AMR'){
-                legend.pos <- c(0.20, 0.26)
+                legend.pos <- c(0.40, 0.26)
                 zx <- c(-180, -30) 
                 zy <- c(-60, 85)
                 a.ratio = 4/3 # before 3.5/4 (Tom Hiatt's setting)
@@ -769,26 +769,81 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
     
     if(zoom=='WPR'){
       legend.pos <- c(0.83, 0.95)
-      zx <- c(70, 215) 
+      zx <- c(60, 215) 
       zy <- c(-50, 55)
       a.ratio = 4.5/5.8 # before 3.5/4 (Tom Hiatt's setting)
-    } else stop(paste(zoom, "is not on my list of zoom level options."))
+    }   else
+      
+      if(zoom=='EMR'){
+        legend.pos <- c(0.10, 0.20)
+        zx <- c(-20, 80) 
+        zy <- c(-10, 50)
+        a.ratio = 3/4 # before 3.5/4 (Tom Hiatt's setting)
+      }    else
+        
+        if(zoom=='EUR'){
+          legend.pos <-  c(0.20, 0.26)
+          zx <- c(-80, 225) 
+          zy <- c(30, 85)
+          a.ratio = 3/10 # before 3.5/4 (Tom Hiatt's setting)
+        }    else
+          
+          if(zoom=='AFR'){
+            legend.pos <- c(0.14, 0.35)
+            zx <- c(-20, 60) 
+            zy <- c(-40, 40)
+            a.ratio = 4/3.5 # before 3.5/4 (Tom Hiatt's setting)
+          }    else
+            
+            if(zoom=='SEA'){
+              legend.pos <- c(0.14, 0.26)
+              zx <- c(64, 155) 
+              zy <- c(-15, 45)
+              a.ratio = 4.5/5.8 
+            }    else
+              
+              if(zoom=='AMR'){
+                legend.pos <- c(0.40, 0.26)
+                zx <- c(-180, -30) 
+                zy <- c(-60, 85)
+                a.ratio = 4/3 # before 3.5/4 (Tom Hiatt's setting)
+              } else stop(paste(zoom, "is not on my list of zoom level options."))
   
   if (recentre > 0)
     zx <- zx + recentre
   
   # merge data
   toplot <-
-    merge(gw,
+    merge(gworld,
           X,
           by.x = 'id',
           by.y = 'iso3',
           all.x = TRUE)
   toplot <- toplot[order(toplot$order),]
+  levels(toplot$g_whoregion) <-
+    c(levels(toplot$g_whoregion), 'Not applicable')
   levels(toplot$var) <-
     c(levels(toplot$var), na.label, 'Not applicable')
-  toplot[is.na(toplot$var), "var"] <- na.label
   toplot[toplot$id == "ESH", "var"] <- 'Not applicable'
+  toplot[is.na(toplot$g_whoregion), "g_whoregion"] <- 'Not applicable'
+  # toplot[toplot$g_whoregion != zoom, "var"] <- 'Not applicable'
+  toplot[is.na(toplot$var), "var"] <- na.label
+  
+  pol7 <-
+    ggplot2::geom_polygon(
+      data = toplot[toplot$g_whoregion != zoom, ],
+      aes(group = .data$group),
+      fill = I("grey75"),
+      colour = line.col
+    )
+  
+  pol8 <-
+    ggplot2::geom_polygon(
+      data = toplot[toplot$var == na.label, ],
+      aes(group = .data$group),
+      fill = I("white"),
+      colour = line.col
+    )
   
   # plot
   p <-
@@ -1188,10 +1243,45 @@ bubblemap_region <- function (X = data.frame(iso3 = NA, size = NA),
     
     if(zoom=='WPR'){
       legend.pos <- c(0.83, 0.95)
-      zx <- c(65, 215) 
+      zx <- c(60, 215) 
       zy <- c(-50, 55)
       a.ratio = 4.5/5.8 # before 3.5/4 (Tom Hiatt's setting)
-    } else stop(paste(zoom, "is not on my list of zoom level options."))
+    }   else
+      
+      if(zoom=='EMR'){
+        legend.pos <- c(0.10, 0.20)
+        zx <- c(-20, 80) 
+        zy <- c(-10, 50)
+        a.ratio = 3/4 # before 3.5/4 (Tom Hiatt's setting)
+      }    else
+        
+        if(zoom=='EUR'){
+          legend.pos <-  c(0.20, 0.26)
+          zx <- c(-80, 225) 
+          zy <- c(30, 85)
+          a.ratio = 3/10 # before 3.5/4 (Tom Hiatt's setting)
+        }    else
+          
+          if(zoom=='AFR'){
+            legend.pos <- c(0.14, 0.35)
+            zx <- c(-20, 60) 
+            zy <- c(-40, 40)
+            a.ratio = 4/3.5 # before 3.5/4 (Tom Hiatt's setting)
+          }    else
+            
+            if(zoom=='SEA'){
+              legend.pos <- c(0.14, 0.26)
+              zx <- c(64, 155) 
+              zy <- c(-15, 45)
+              a.ratio = 4.5/5.8 
+            }    else
+              
+              if(zoom=='AMR'){
+                legend.pos <- c(0.40, 0.26)
+                zx <- c(-180, -30) 
+                zy <- c(-60, 85)
+                a.ratio = 4/3 # before 3.5/4 (Tom Hiatt's setting)
+              } else stop(paste(zoom, "is not on my list of zoom level options."))
   
   if (recentre > 0)
     zx <- zx + recentre
@@ -1200,7 +1290,7 @@ bubblemap_region <- function (X = data.frame(iso3 = NA, size = NA),
   p <-
     ggplot2::ggplot(gworld, aes(x = .data$long, y = .data$lat)) +
     ggplot2::geom_polygon(aes(group = .data$group), fill = 'white') +
-    pol1 + pol2 + pol3 + pol4 + pol5 + pol6 +
+    pol1 + pol2 + pol3 + pol4 + pol5 + pol6 + 
     lin0 + lin1 + lin2 + lin3 + lin4 +
     thm1 + thm2 + thm3 +
     ggplot2::coord_cartesian(xlim = zx,
@@ -1240,9 +1330,6 @@ bubblemap_region <- function (X = data.frame(iso3 = NA, size = NA),
 
   return(p)
 }
-
-
-
 
 
 
@@ -1399,10 +1486,45 @@ bubblemap_region <- function (X = data.frame(iso3 = NA, size = NA),
     
     if(zoom=='WPR'){
       legend.pos <- c(0.83, 0.95)
-      zx <- c(70, 215) 
+      zx <- c(60, 215) 
       zy <- c(-50, 55)
       a.ratio = 4.5/5.8 # before 3.5/4 (Tom Hiatt's setting)
-    } else stop(paste(zoom, "is not on my list of zoom level options."))
+    }   else
+      
+      if(zoom=='EMR'){
+        legend.pos <- c(0.10, 0.20)
+        zx <- c(-20, 80) 
+        zy <- c(-10, 50)
+        a.ratio = 3/4 # before 3.5/4 (Tom Hiatt's setting)
+      }    else
+        
+        if(zoom=='EUR'){
+          legend.pos <-  c(0.20, 0.26)
+          zx <- c(-80, 225) 
+          zy <- c(30, 85)
+          a.ratio = 3/10 # before 3.5/4 (Tom Hiatt's setting)
+        }    else
+          
+          if(zoom=='AFR'){
+            legend.pos <- c(0.14, 0.35)
+            zx <- c(-20, 60) 
+            zy <- c(-40, 40)
+            a.ratio = 4/3.5 # before 3.5/4 (Tom Hiatt's setting)
+          }    else
+            
+            if(zoom=='SEA'){
+              legend.pos <- c(0.14, 0.26)
+              zx <- c(64, 155) 
+              zy <- c(-15, 45)
+              a.ratio = 4.5/5.8 
+            }    else
+              
+              if(zoom=='AMR'){
+                legend.pos <- c(0.40, 0.26)
+                zx <- c(-180, -30) 
+                zy <- c(-60, 85)
+                a.ratio = 4/3 # before 3.5/4 (Tom Hiatt's setting)
+              } else stop(paste(zoom, "is not on my list of zoom level options."))
   
   if (recentre > 0)
     zx <- zx + recentre

@@ -1,16 +1,12 @@
 library('devtools')
-
 library("ggplot2")
 library("dplyr")
 library("devtools")
 library('here')
 library('RColorBrewer')
-
 library('xlsx')
-library("whomap")
 
-install_github("glaziou/whomap")
-
+# test data: Global TB database
 tb <- read.csv("https://extranet.who.int/tme/generateCSV.asp?ds=notifications") 
 
 df <- tb %>%
@@ -19,62 +15,75 @@ df <- tb %>%
   mutate(var = cut(c_newinc,breaks=c(0,100,1000,10000,100000,Inf),right = FALSE, 
                    labels=c("<100","100\u2013999","1000\u20139999","10000\u201399999","\u2265100000"))) 
 
-p1 <-  whomap(df,
-              colours = brewer.pal(5, "YlGnBu"), # using a prefixed colour pattern: for other patterns. please see https://r-graph-gallery.com/38-rcolorbrewers-palettes.html
-              legend.title = "New/relapse TB cases", # legend title
-              na.col = "white", # colour for NA values
-              water.col = "white", # colour for sea area: default is skyblue
-              legend.pos = c(0.14,0.40)) # legend position
-
-install_github('tyamanaka312/whomap_region')
+devtools::install_github('tyamanaka312/whomap_region')
 library("whoregionalmap")
 
-zoom <- "WPR"
-p1 <- df %>%
-  # filter(g_whoregion == zoom) %>%
+# WHO AFRO
+AFR <- df %>%
   whomap_region(
        colours = brewer.pal(5, "YlGnBu"), # using a prefixed colour pattern: for other patterns. please see https://r-graph-gallery.com/38-rcolorbrewers-palettes.html
        legend.title = "New/relapse TB cases", # legend title
-       na.col = "grey", # colour for NA values
+       na.col = "white", # colour for NA values
        water.col = "white", # colour for sea area: default is skyblue
-       legend.pos = c(0.14,0.40),
-       zoom = zoom) # legend position
+       zoom = "AFR") # must specify WHO region code "AFR", "AMR", "EUR", "EMR", "SEA", "WPR" are allowed.
 
-ggsave(p1, file=here::here("./tests/local/test_output.png"),width=12,height=8) # file extension can be:device function "png","eps", "ps", "tex" (pictex), "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only). 
+ggsave(AFR, file=here::here("./tests/local/AFR.png"),width=8,height=10) 
 
+# WHO AMRO/PAHO
+AMR <- df %>%
+  whomap_region(
+    colours = brewer.pal(5, "YlGnBu"), # using a prefixed colour pattern: for other patterns. please see https://r-graph-gallery.com/38-rcolorbrewers-palettes.html
+    legend.title = "New/relapse TB cases", # legend title
+    na.col = "white", # colour for NA values
+    water.col = "white", # colour for sea area: default is skyblue
+    zoom = "AMR") # must specify WHO region code
 
-
-
-
-
-
-
-
-
-
-
+ggsave(AMR, file=here::here("./tests/local/AMR.png"),width=8,height=12) 
 
 
+# WHO EURO
+EUR <- df %>%
+  whomap_region(
+    colours = brewer.pal(5, "YlGnBu"), # using a prefixed colour pattern: for other patterns. please see https://r-graph-gallery.com/38-rcolorbrewers-palettes.html
+    legend.title = "New/relapse TB cases", # legend title
+    na.col = "white", # colour for NA values
+    water.col = "white", # colour for sea area: default is skyblue
+    zoom = "EUR") # must specify WHO region code
+
+ggsave(EUR, file=here::here("./tests/local/EUR.png"),width=14,height=10) 
+
+# WHO EMRO
+EMR <- df %>%
+  whomap_region(
+    colours = brewer.pal(5, "YlGnBu"), # using a prefixed colour pattern: for other patterns. please see https://r-graph-gallery.com/38-rcolorbrewers-palettes.html
+    legend.title = "New/relapse TB cases", # legend title
+    na.col = "white", # colour for NA values
+    water.col = "white", # colour for sea area: default is skyblue
+    zoom = "EMR") # must specify WHO region code
+
+ggsave(EMR, file=here::here("./tests/local/EMR.png"),width=12,height=8) 
 
 
-if (!is.factor(df$g_whoregion))
-  df$g_whoregion <- as.factor(df$g_whoregion)
+# WHO SEARO
+SEA <- df %>%
+  whomap_region(
+    colours = brewer.pal(5, "YlGnBu"), # using a prefixed colour pattern: for other patterns. please see https://r-graph-gallery.com/38-rcolorbrewers-palettes.html
+    legend.title = "New/relapse TB cases", # legend title
+    na.col = "white", # colour for NA values
+    water.col = "white", # colour for sea area: default is skyblue
+    zoom = "SEA") # must specify WHO region code
 
-toplot <-merge(gworld,
-      df,
-      by.x = 'id',
-      by.y = 'iso3',
-      all.x = TRUE)
+ggsave(SEA, file=here::here("./tests/local/SEA.png"),width=12,height=8) 
 
-toplot <- toplot[order(toplot$order),]
+# WHO WPRO
+WPR <- df %>%
+  whomap_region(
+    colours = brewer.pal(5, "YlGnBu"), # using a prefixed colour pattern: for other patterns. please see https://r-graph-gallery.com/38-rcolorbrewers-palettes.html
+    legend.title = "New/relapse TB cases", # legend title
+    na.col = "white", # colour for NA values
+    water.col = "white", # colour for sea area: default is skyblue
+    zoom = "WPR") # must specify WHO region code
 
-levels(toplot$g_whoregion) <-
-  c(levels(toplot$g_whoregion), 'Not applicable')
-levels(toplot$var) <-
-  c(levels(toplot$var), 'No data', 'Not in region', 'Not applicable')
-toplot[toplot$id == "ESH", "var"] <- 'Not applicable'
-toplot[is.na(toplot$g_whoregion), "g_whoregion"] <- 'Not applicable'
-toplot[toplot$g_whoregion != "WPR", "var"] <- 'Not in region'
+ggsave(WPR, file=here::here("./tests/local/WPR.png"),width=12,height=8) 
 
-df %>%
-  filter(g_whoregion == zoom)
+

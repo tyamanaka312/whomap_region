@@ -48,7 +48,7 @@ whomap_region <- function (X = data.frame(iso3 = NA, var = NA),
                     na.label = 'No data',
                     na.col = 'grey95',
                     disclaimer = FALSE,
-                    legend.pos = c(0.14, 0.26),
+                    legend.pos = NULL,
                     recentre = 12,
                     hidef = FALSE,
                     zoom = "Global"
